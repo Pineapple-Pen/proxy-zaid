@@ -1,11 +1,15 @@
+require('newrelic');
 const express = require("express");
 const path = require("path");
 var bodyParser = require("body-parser");
+const morgan = require('morgan');
+
 // var router = require("./routes/routes.js");
 const app = express();
 const port = process.env.PORT || 3001;
 const host = process.env.HOST || 'localhost';
 
+app.use(morgan('tiny'));
 
 app.use('/restaurants/:id', express.static('../public'));
 
