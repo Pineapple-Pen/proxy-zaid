@@ -2,16 +2,16 @@ require('newrelic');
 const express = require("express");
 const path = require("path");
 var bodyParser = require("body-parser");
-const morgan = require('morgan');
+//const morgan = require('morgan');
 
 // var router = require("./routes/routes.js");
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const host = process.env.HOST || 'localhost';
 
-app.use(morgan('tiny'));
+//app.use(morgan('tiny'));
 
-app.use('/restaurants/:id', express.static('../public'));
+app.use('/restaurants/:id', express.static('public'));
 
 app.get('/', (req, res) => {
   res.redirect(`http://${host}:${port}/restaurants/${Math.floor(Math.random()*10000000)}`);
