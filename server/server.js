@@ -40,7 +40,7 @@ const renderComponents = (components, props = {}) => {
 
 
 app.get('/restaurants/:id', function(req, res){
-  let components = renderComponents(services);
+  let components = renderComponents(services, {id:req.params.id});
   res.end(Layout(
     'Pen Apple PineApple Pen',
     App(...components),
