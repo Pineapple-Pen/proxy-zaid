@@ -1,6 +1,8 @@
-module.exports = (Photos, Nearby, related, reviews) => `
-  <div id="gallery-app">${Photos}</div>
-  <div id="Recommendations">${Nearby}</div>
-  <div id="Related">${related}</div>
-  <div id="Reviews">${reviews}</div>
+module.exports = (Photos, Recommendations,  Sidebar, Overview) => `
+  <div id="Photos">${Photos}</div>
+  <div id="overview-sidebar">
+    <div id="overview">${Overview}</div>
+    <div id="Sidebar">${Sidebar}</div>
+  </div>
+  <div id="Recommendations">${Recommendations}</div>
 `;

@@ -49,14 +49,14 @@ const renderComponents = (components, props = {}) => {
 
 
 app.get('/restaurants/:id', function(req, res){
+  console.log(services)
   let components = renderComponents(services, {id:req.params.id});
   res.end(Layout(
     'Pen Apple PineApple Pen',
     App(...components),
-    Scripts(Object.keys(services))
+    Scripts(Object.keys(services), req.params.id)
   ));
 });
-
 
 
 
