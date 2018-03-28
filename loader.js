@@ -7,8 +7,8 @@ const loadBundle = function(cache, item, filename) {
   // add a small delay to ensure pipe has closed
   setTimeout(() => {
     console.log('loading:', filename);
-    cache[item] = require(filename).default;    
-  }, 0);
+    cache[item] = require(filename).default;   
+  }, 1000);
 };
 
 const fetchBundles = (path, services, suffix = '', require = false) => {

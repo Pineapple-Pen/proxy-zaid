@@ -4,6 +4,10 @@ const path = require("path");
 const bodyParser = require("body-parser");
 require("dotenv").load();
 
+if (typeof(window) === 'undefined') {
+  global.window = new Object();
+}
+
 const morgan = require('morgan');
 
 // var router = require("./routes/routes.js");
@@ -17,11 +21,16 @@ const hostRecommendations = process.env.HOST_RECOMMENDATIONS || 'localhost';
 
 app.use(morgan('tiny'));
 
-app.use('/restaurants/:id', express.static('public'));  //Capture static files (index.html, CSS, etc)
+//Redirect Root to a random restaurant ID
+app.get('/', (req, res) => {
+  res.redirect(`http://${hostPhotos}:${port}/restaurants/${Math.floor(Math.random()*10000000)}`);
+});
+
+app.use(express.static('public'));  //Capture static files (index.html, CSS, etc)
 
 const clientBundles = './public/services';
 const serverBundles = './templates/services';
-const serviceConfig = require('../service-config.json');
+const serviceConfig = require('../service-config.js');
 const services = require('../loader.js')(clientBundles, serverBundles, serviceConfig);
 
 const React = require('react');
@@ -49,10 +58,6 @@ app.get('/restaurants/:id', function(req, res){
 });
 
 
-
-app.get('/', (req, res) => {
-  res.redirect(`http://${hostPhotos}:${port}/restaurants/${Math.floor(Math.random()*10000000)}`);
-});
 
 
 app.get('/api/restaurants/:id/gallery', (req, res) => {
