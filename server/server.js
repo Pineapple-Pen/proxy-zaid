@@ -8,7 +8,7 @@ if (typeof(window) === 'undefined') {
   global.window = new Object();
 }
 
-const morgan = require('morgan');
+//const morgan = require('morgan');
 
 // var router = require("./routes/routes.js");
 const app = express();
@@ -19,14 +19,15 @@ const hostOverview = process.env.HOST_OVERVIEW || 'localhost';
 const hostSidebar = process.env.HOST_SIDEBAR || 'localhost';
 const hostRecommendations = process.env.HOST_RECOMMENDATIONS || 'localhost';
 
-app.use(morgan('tiny'));
+//app.use(morgan('tiny'));
 
 //Redirect Root to a random restaurant ID
 app.get('/', (req, res) => {
   res.redirect(`http://${hostPhotos}:${port}/restaurants/${Math.floor(Math.random()*10000000)}`);
 });
 
-app.use(express.static('public'));  //Capture static files (index.html, CSS, etc)
+app.use(express.static('public'));  //Capture static files (index.html, CSS, etc) <--Use for Server Side Rendering
+//app.use('/restaurants/:id',express.static('public'));  //Capture static files (index.html, CSS, etc) <--Use for Client Side Rendering
 
 const clientBundles = './public/services';
 const serverBundles = './templates/services';
@@ -39,7 +40,8 @@ const Layout = require('../templates/layout');
 const App = require('../templates/app');
 const Scripts = require('../templates/scripts');
 
-// see: https://medium.com/styled-components/the-simple-guide-to-server-side-rendering-react-with-styled-components-d31c6b2b8fbf
+//see: https://medium.com/styled-components/the-simple-guide-to-server-side-rendering-react-with-styled-components-d31c6b2b8fbf
+
 const renderComponents = (components, props = {}) => {
   return Object.keys(components).map(item => {
     let component = React.createElement(components[item], props);
@@ -49,7 +51,6 @@ const renderComponents = (components, props = {}) => {
 
 
 app.get('/restaurants/:id', function(req, res){
-  console.log(services)
   let components = renderComponents(services, {id:req.params.id});
   res.end(Layout(
     'Pen Apple PineApple Pen',
