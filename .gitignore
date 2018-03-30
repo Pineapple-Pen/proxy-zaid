@@ -4,3 +4,4 @@ newrelic.js
 newrelic_agent.log
 templates/services
 public/services
+proxy-aws-key.pem
